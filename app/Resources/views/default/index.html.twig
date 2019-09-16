@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>Booking Form HTML Template</title>
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+<div id="booking" class="section">
+    <div class="section-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-md-push-5">
+                    <div class="booking-cta">
+                        <h1>Make your reservation</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, soluta magnam consectetur molestias itaque
+                            ad sint fugit architecto incidunt iste culpa perspiciatis possimus voluptates aliquid consequuntur cumque quasi.
+                            Perspiciatis.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-pull-7">
+                    <div class="booking-form">
+                        <form id="bookingForm" class="submit-form" action="/submit" method="POST">
+                            <div class="form-group">
+                                <span class="form-label">From Airport</span>
+                                <input id="fromAirport" class="form-control from-airport" type="text" name="from_airport" value="Tan Son Nhat Airport" readonly>
+                            </div>
+                            <div class="form-group">
+                                <span class="form-label">Your Destination</span>
+                                <input id="yourDestination" class="form-control" type="text" name="your_destination" placeholder="Enter a destination or hotel name">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Arrive Date</span>
+                                        <input id="arriveDate" class="form-control arrive-date" name="arrive_date" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <span class="form-label">Arrive time</span>
+                                        <select id="arriveTime" name="arrive_time" class="form-control" id="arriveTime">
+                                            <option value="0">Please select</option>
+                                            <option value="1">01:00 AM</option>
+                                            <option value="2">02:00 AM</option>
+                                            <option value="3">03:00 AM</option>
+                                            <option value="4">04:00 AM</option>
+                                            <option value="5">05:00 AM</option>
+                                            <option value="6">06:00 AM</option>
+                                            <option value="7">07:00 AM</option>
+                                            <option value="8">08:00 AM</option>
+                                            <option value="9">09:00 AM</option>
+                                            <option value="10">10:00 AM</option>
+                                            <option value="11">11:00 AM</option>
+                                            <option value="12">12:00 AM</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Passengers</span>
+                                        <input id="passengers" class="form-control" name="passengers" type="text" placeholder="Number of passengers">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Luggages</span>
+                                        <input id="luggages" class="form-control" name="luggages" type="text" placeholder="Number of Luggages">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <span class="form-label">Seats</span>
+                                        <select class="form-control" id="seats" name="seats">
+                                            <option value="1">4 Seats</option>
+                                            <option value="2">7 Seats</option>
+                                            <option value="3">16 Seats</option>
+                                            <option value="4">Call</option>
+                                        </select>
+                                        <span class="select-arrow"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-btn ">
+                                <button type="submit" class="submit-btn w-100">Booking</button>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <button id="ajaxBooking" class="btn btn-danger">Submit ajax data</button>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+        crossorigin="anonymous"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+  $('.arrive-date').datepicker({
+    orientation: 'bottom',
+    format: "dd/mm/yyyy",
+    autoclose: true
+  }).datepicker("setDate",'now');
+
+  $('#ajaxBooking').click(function (e) {
+    //alert('test cho vui');
+    console.log('clicked');
+
+    var bookingData = {
+      from_airport: $('#fromAirport').val(),
+      your_destination: $('#yourDestination').val(),
+      arrive_date: $('#arriveDate').val(),
+      arrive_time: $('#arriveTime').val(),
+      passengers: $('#passengers').val(),
+      luggages: $('#luggages').val(),
+      seats: $('#seats').val()
+    };
+
+    console.log(bookingData);
+
+    $.post('/submit_ajax_json', JSON.stringify(bookingData), function (res) {
+
+
+      // after server processing, show message
+      // sau khi ajax thanh cong, thong bao thanh cong
+      swal({
+        title: "Good job!",
+        text: "Your booking is successfully",
+        icon: "success",
+      });
+
+    })
+  });
+
+  $('#bookingForm').submit(function (e) {
+    e.preventDefault();
+
+    $.post('/submit_ajax', $(this).serialize(), function(res) {
+//      console.log(res);
+      swal({
+        title: "Good job!",
+        text: "Your booking is successfully",
+        icon: "success",
+      });
+    })
+  });
+
+</script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
