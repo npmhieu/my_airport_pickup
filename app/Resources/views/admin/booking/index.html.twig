@@ -16,9 +16,16 @@
 
             <div class="card-header">
                 Booking List
+                <a class="btn btn-link" href="/create-booking">Create Booking</a>
             </div>
 
             <div class="card-body">
+
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
 
                 <table class="table">
 
@@ -30,6 +37,7 @@
                             <th>Arrive Date</th>
                             <th>Number Pass.</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
@@ -44,6 +52,11 @@
                             <td>{{ booking.arriveDate | date('d-m-Y H:i') }}</td>
                             <td>{{ booking.numberPassengers }}</td>
                             <td>{{ booking.price }}</td>
+                            <td>
+                                <a class="btn btn-primary" href="{{ path('admin_booking_edit', { bookingId: booking.id }) }}">Edit</a>
+
+                                <a class="btn btn-danger" href="{{ path('admin_booking_delete', { bookingId: booking.id }) }}">Delete</a>
+                            </td>
                         </tr>
 
                     {% endfor %}

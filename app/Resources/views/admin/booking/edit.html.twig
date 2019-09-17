@@ -1,0 +1,73 @@
+{% extends "admin/admin_master_template.html.twig" %}
+
+{% block custom_scripts %}
+
+    {{ parent() }}
+
+    <script src="/admin/js/booking.js"></script>
+
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="col-12">
+
+        <div class="card">
+
+            <div class="card-header">
+                Edit Booking
+            </div>
+
+            <div class="card-body">
+
+                {{ form_start(bookingForm) }}
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.fromAirport) }}
+                    {{ form_widget(bookingForm.fromAirport) }}
+                </div>
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.toDestination) }}
+                    {{ form_widget(bookingForm.toDestination) }}
+                </div>
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.arriveDate) }}
+                    {{ form_widget(bookingForm.arriveDate) }}
+                </div>
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.numberPassengers) }}
+                    {{ form_widget(bookingForm.numberPassengers) }}
+                </div>
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.numberLuggages) }}
+                    {{ form_widget(bookingForm.numberLuggages) }}
+                </div>
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.numberSeats) }}
+                    {{ form_widget(bookingForm.numberSeats) }}
+                </div>
+
+                <div class="form-row mb-3">
+                    {{ form_label(bookingForm.price) }}
+                    {{ form_widget(bookingForm.price) }}
+                </div>
+
+                <div class="text-center">
+                    {{ form_label(bookingForm.save) }}
+                    {{ form_widget(bookingForm.save) }}
+                </div>
+
+                {{ form_end(bookingForm) }}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
