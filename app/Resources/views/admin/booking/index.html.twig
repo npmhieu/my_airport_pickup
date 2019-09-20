@@ -16,7 +16,9 @@
 
             <div class="card-header">
                 Booking List
-                <a class="btn btn-link" href="/create-booking">Create Booking</a>
+                <a class="btn btn-link pull-right" href="{{ path('admin_booking_create') }}">
+                    <i class="fa fa-plus" aria-hidden="true"></i> Create Booking
+                </a>
             </div>
 
             <div class="card-body">
@@ -55,7 +57,7 @@
                             <td>
                                 <a class="btn btn-primary" href="{{ path('admin_booking_edit', { bookingId: booking.id }) }}">Edit</a>
 
-                                <a class="btn btn-danger" href="{{ path('admin_booking_delete', { bookingId: booking.id }) }}">Delete</a>
+                                <a class="btn btn-danger btn-delete" href="{{ path('admin_booking_delete', { bookingId: booking.id }) }}">Delete</a>
                             </td>
                         </tr>
 
@@ -64,6 +66,19 @@
                     </tbody>
 
                 </table>
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pull-right">
+
+                        {% for index in range(1, totalPage) %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="{{ path('admin_booking_list') }}?page={{ index }}">{{ index }}</a>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </nav>
 
             </div>
 

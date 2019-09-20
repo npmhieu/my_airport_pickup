@@ -49,9 +49,9 @@ class BookingForm extends AbstractType
         'arriveDate',
         TextType::class,
         array(
-          'data' => $date->format('d/m/Y H:i'),
+          'data' => $date->format('d/m/Y'),
           'label' => "Arrive Date:",
-          'attr' => array('class' => 'col-md-10 form-control'),
+          'attr' => array('class' => 'col-md-10 form-control arrive-date'),
           'label_attr' => array('class' => 'col-md-2 col-form-label'),
           'required' => true,
         )

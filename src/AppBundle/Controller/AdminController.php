@@ -38,7 +38,16 @@ class AdminController extends Controller
     $em = $this->getDoctrine()->getManager();
 
     $itemPerPage = 5;
-    $page = 1;
+    $page = $request->get("page");
+    if(!isset($page)){
+      $page = 0;
+    } else {
+      $page = $page - 1;
+    }
+
+    // total page = (total item) / (item per page)
+    $totalItem = $em->getRepository(Booking::class)->countAll();
+    $totalPage = ceil ($totalItem / $itemPerPage);
 
     $bookings = $em->getRepository(Booking::class)->findBy(
       [],
@@ -47,10 +56,14 @@ class AdminController extends Controller
       $itemPerPage *  $page
     );
 
+
+    // current page
+
     return $this->render('admin/booking/index.html.twig',
       [
         "bookings" => $bookings,
-        "message" => "hello"
+        "totalPage" => $totalPage,
+        "currentPage" => $page,
       ]);
   }
 
@@ -72,14 +85,13 @@ class AdminController extends Controller
         $updatedBooking = $form->getData();
         $updatedDate = $updatedBooking->getArriveDate();
 
-        $updatedDate = \DateTime::createFromFormat('d/m/Y H:i', $updatedDate);
+        $updatedDate = \DateTime::createFromFormat('d/m/Y', $updatedDate);
         $updatedBooking->setArriveDate($updatedDate);
 
         $em->persist($updatedBooking);
         $em->flush();
 
         // Flash bag
-
         $this->addFlash('success', 'Update Booking successfully!');
         return $this->redirectToRoute('admin_booking_list');
 
@@ -97,11 +109,66 @@ class AdminController extends Controller
   }
 
   /**
-   * @Route("/admin/bookings/{bookingId}/delete", name="admin_booking_delete")
+   * @Route("/admin/bookings/{bookingId}/delete", name="admin_booking_delete", methods={"POST"})
    */
   public function adminBookingDeleteAction(Request $request, $bookingId)
   {
-    dump($bookingId);die;
+    $em = $this->getDoctrine()->getManager();
+    $booking = $em->getRepository(Booking::class)->find($bookingId);
+
+    if (isset($booking)) {
+      // 1. booking co ton tai
+
+      $em->remove($booking);
+      $em->flush();
+
+      $result = array('status' => array('code' => 200, 'message' => 'success'));
+      return new JsonResponse($result);
+    }
+
+    $result = array('status' => array('code' => 500, 'message' => 'failed'));
+    return new JsonResponse($result);
+  }
+
+  /**
+   * @Route("/admin/bookings/create", name="admin_booking_create")
+   */
+  public function adminBookingCreateAction(Request $request)
+  {
+    $booking = new Booking();
+
+    $form = $this->createForm(BookingForm::class, $booking);
+    $form->handleRequest( $request );
+
+    if ( $form->isSubmitted() && $form->isValid()) {
+      try {
+
+        $updatedBooking = $form->getData();
+        $updatedDate = $updatedBooking->getArriveDate();
+
+        $updatedDate = \DateTime::createFromFormat('d/m/Y', $updatedDate);
+        $updatedBooking->setArriveDate($updatedDate);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($updatedBooking);
+        $em->flush();
+
+        // Flash bag
+
+        $this->addFlash('success', 'Update Booking successfully!');
+        return $this->redirectToRoute('admin_booking_list');
+
+      } catch (\Exception $ex) {
+
+        $this->addFlash('error', 'Something went wrong. ' . $ex->getMessage());
+        $this->container->get('logger')->error($ex->getMessage());
+      }
+    }
+
+    return $this->render('admin/booking/edit.html.twig',
+      [
+        'bookingForm' => $form->createView()
+      ]);
 
   }
 
