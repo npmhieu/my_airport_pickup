@@ -104,7 +104,8 @@ class AdminController extends Controller
 
     return $this->render('admin/booking/edit.html.twig',
       [
-        'bookingForm' => $form->createView()
+        'bookingForm' => $form->createView(),
+        'user' => $booking->getUser()
       ]);
   }
 

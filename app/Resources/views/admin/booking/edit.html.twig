@@ -26,6 +26,23 @@
 
             <div class="card-body">
 
+                {% if user is defined %}
+
+                    <div class="form-row mb-3">
+                        <label class="col-md-2 col-form-label">User fullname</label>
+                        <label class="col-md-10 form-control" readonly>{{ user.fullname }}</label>
+                    </div>
+                    <div class="form-row mb-3">
+                        <label class="col-md-2 col-form-label">User phone</label>
+                        <label class="col-md-10 form-control" readonly="">{{ user.phone }}</label>
+                    </div>
+                    <div class="form-row mb-3">
+                        <label class="col-md-2 col-form-label">User email</label>
+                        <label class="col-md-10 form-control" readonly>{{ user.email }}</label>
+                    </div>
+
+                {% endif %}
+
                 {{ form_start(bookingForm) }}
 
                 <div class="form-row mb-3">

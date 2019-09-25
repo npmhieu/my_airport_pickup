@@ -7,14 +7,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DefaultController extends Controller
 {
   /**
    * @Route("/", name="homepage")
    */
-  public function indexAction(Request $request)
+  public function indexAction(Security $security, Request $request)
   {
+//    $user = $security->getUser();
+//    $bookings = $user->getBookings()->getValues();
+//    dump($bookings);die;
+
     return $this->render('default/index.html.twig');
   }
 
@@ -22,7 +27,7 @@ class DefaultController extends Controller
    * @Route("/submit_ajax_json", name="booking_submit_ajax_json", methods={"POST"})
    *
    */
-  public function submitAjaxJsonAction(Request $request)
+  public function submitAjaxJsonAction(Security $security, Request $request)
   {
     $data = json_decode($request->getContent(), true);
 
@@ -35,6 +40,9 @@ class DefaultController extends Controller
     $booking->setNumberPassengers($data['passengers']);
     $booking->setNumberLuggages($data['luggages']);
     $booking->setNumberSeats($data['seats']);
+
+    $user = $security->getUser();
+    $booking->setUser($user);
 
     $em = $this->getDoctrine()->getManager();
     $em->persist($booking); //$em is an instance of EntityManager
@@ -51,7 +59,7 @@ class DefaultController extends Controller
    * @Route("/submit_ajax", name="booking_submit_ajax", methods={"POST"})
    *
    */
-  public function submitAjaxAction(Request $request)
+  public function submitAjaxAction(Security $security, Request $request)
   {
 
     $fromAirport = $request->get('from_airport');
@@ -73,6 +81,9 @@ class DefaultController extends Controller
     $booking->setNumberPassengers($passengers);
     $booking->setNumberLuggages($luggages);
     $booking->setNumberSeats($seats);
+
+    $user = $security->getUser();
+    $booking->setUser($user);
 
     $em = $this->getDoctrine()->getManager();
     $em->persist($booking); //$em is an instance of EntityManager

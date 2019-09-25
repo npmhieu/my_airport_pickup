@@ -85,6 +85,11 @@ class User implements AdvancedUserInterface, \Serializable
    */
   private $updatedDate;
 
+  /**
+   * One User has Many Bookings.
+   * @ORM\OneToMany(targetEntity="Booking", mappedBy="user")
+   */
+  private $bookings;
 
   /**
    * Poll constructor.
@@ -94,6 +99,8 @@ class User implements AdvancedUserInterface, \Serializable
   public function __construct()
   {
     $this->createdDate = new \DateTime();
+    $this->bookings = new ArrayCollection();
+
     $this->status = 1;
   }
 
@@ -407,5 +414,21 @@ class User implements AdvancedUserInterface, \Serializable
   public function eraseCredentials()
   {
     // TODO: Implement eraseCredentials() method.
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getBookings()
+  {
+    return $this->bookings;
+  }
+
+  /**
+   * @param mixed $bookings
+   */
+  public function setBookings($bookings)
+  {
+    $this->bookings = $bookings;
   }
 }

@@ -38,6 +38,7 @@
                             <th>To Destination</th>
                             <th>Arrive Date</th>
                             <th>Number Pass.</th>
+                            <th>Phone Number</th>
                             <th>Price</th>
                             <th>Actions</th>
                         </tr>
@@ -53,6 +54,7 @@
                             <td>{{ booking.toDestination }}</td>
                             <td>{{ booking.arriveDate | date('d-m-Y H:i') }}</td>
                             <td>{{ booking.numberPassengers }}</td>
+                            <td>{{ booking.userPhone }}</td>
                             <td>{{ booking.price }}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{ path('admin_booking_edit', { bookingId: booking.id }) }}">Edit</a>

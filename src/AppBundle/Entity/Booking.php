@@ -88,6 +88,14 @@ class Booking
 
 
   /**
+   * Many Booking belong to One User.
+   * @ORM\ManyToOne(targetEntity="User", inversedBy="bookings")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+   */
+  private $user;
+
+
+  /**
    * Poll constructor.
    *
    * @param $anwsers
@@ -257,6 +265,27 @@ class Booking
     $this->price = $price;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
+
+  /**
+   * @param mixed $user
+   */
+  public function setUser($user)
+  {
+    $this->user = $user;
+  }
+
+  public function getUserPhone()
+  {
+
+    return isset($this->user) ? $this->user->getPhone() : '';
+  }
 
 
 }
