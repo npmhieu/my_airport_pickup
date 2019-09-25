@@ -52,6 +52,9 @@ class User implements AdvancedUserInterface, \Serializable
    */
   private $password;
 
+
+  private $repeatPassword;
+
   /**
    * @var int
    *
@@ -173,6 +176,29 @@ class User implements AdvancedUserInterface, \Serializable
   {
     $this->password = $password;
   }
+
+  /**
+   * @return mixed
+   */
+  public function getRepeatPassword()
+  {
+    return $this->repeatPassword;
+  }
+
+  /**
+   * @param mixed $repeatPassword
+   */
+  public function setRepeatPassword($repeatPassword)
+  {
+    $this->repeatPassword = $repeatPassword;
+  }
+
+  public function getBatKyCaiGi()
+  {
+    return "Ai ma biet ne";
+  }
+
+
 
   /**
    * @return int
@@ -341,6 +367,10 @@ class User implements AdvancedUserInterface, \Serializable
 
     if ($this->role == 3) {
       return ["ROLE_DRIVER"];
+    }
+
+    if ($this->role == 4) {
+      return ["ROLE_NORMAL_USER"];
     }
 
     return ["ROLE_NORMAL_USER"];

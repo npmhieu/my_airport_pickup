@@ -36,6 +36,13 @@
         <div class="card mx-4">
           <div class="card-body p-4">
             <h1>Register</h1>
+
+              {% for message in app.flashes('error') %}
+                  <div class="alert alert-danger">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+
             <p class="text-muted">Create your account</p>
             {{ form_start(userForm) }}
 
@@ -52,6 +59,11 @@
                 {{ form_label(userForm.password) }}
                 {{ form_widget(userForm.password) }}
             </div>
+
+              <div class="form-row mb-3">
+                  {{ form_label(userForm.repeatPassword) }}
+                  {{ form_widget(userForm.repeatPassword) }}
+              </div>
 
             <div class="form-row mb-3">
                 {{ form_label(userForm.phone) }}

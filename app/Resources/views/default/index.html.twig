@@ -32,6 +32,39 @@
 </head>
 
 <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Airport pickup</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{{ path("homepage") }}">Home</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if app.user %}
+                    <li><a href="{{ path("logout") }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ path("register") }}">Register</a></li>
+                    <li><a href="{{ path("login") }}">Login</a></li>
+                {% endif %}
+
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
 <div id="booking" class="section">
     <div class="section-center">
         <div class="container">
@@ -39,9 +72,7 @@
                 <div class="col-md-7 col-md-push-5">
                     <div class="booking-cta">
                         <h1>Make your reservation</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi facere, soluta magnam consectetur molestias itaque
-                            ad sint fugit architecto incidunt iste culpa perspiciatis possimus voluptates aliquid consequuntur cumque quasi.
-                            Perspiciatis.
+                        <p class="text-danger">Welcome {{ is_granted("ROLE_NORMAL_USER") ? app.user.batKyCaiGi : "" }}
                         </p>
                     </div>
                 </div>

@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\User;
@@ -30,7 +32,7 @@ class SecurityController extends Controller
   /**
    * @Route("/register", name="register")
    */
-  public function registerAction(Request $request)
+  public function registerAction(UserPasswordEncoderInterface $encoder, Request $request)
   {
     $user = new User();
 
@@ -41,6 +43,16 @@ class SecurityController extends Controller
       try {
 
         $user = $form->getData();
+
+        $password = $user->getPassword();
+        $repeatPassword = $user->getRepeatPassword();
+
+        if($password != $repeatPassword){
+          throw new Exception("Password mismatch", 567);
+        }
+
+        $encodedPassword = $encoder->encodePassword($user, $password);
+        $user->setPassword($encodedPassword);
         $user->setRole(4);
 
         $em = $this->getDoctrine()->getManager();
@@ -54,8 +66,13 @@ class SecurityController extends Controller
 
       } catch (\Exception $ex) {
 
-        $this->addFlash('error', 'Something went wrong. ' . $ex->getMessage());
-        $this->container->get('logger')->error($ex->getMessage());
+        $message = 'Something went wrong. Please check again!';
+        if ($ex->getCode() == 0) {
+          $message = 'Something went wrong. Duplicated email !!!';
+        }
+
+        $this->addFlash('error', $message);
+        return $this->redirectToRoute("register");
       }
     }
     return $this->render('security/register.html.twig', [
